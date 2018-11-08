@@ -7,4 +7,4 @@ at an accurate scale in terms of size and distance.
 Another idea would be to give the user the option of viewing the orbits by inputing units of time. This would be shown as
 points moving in different sized circles at different speeds based on the inputed time scale.
 
-
+I was thinking about using openFrameworks and
