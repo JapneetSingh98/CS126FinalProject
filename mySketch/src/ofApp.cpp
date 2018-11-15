@@ -2,7 +2,7 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-
+    srand(static_cast<unsigned>(time(0))); // Seed random with current time
 }
 
 //--------------------------------------------------------------
@@ -12,7 +12,8 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-
+    ofSetColor(0, 0, 0);
+    ofDrawCircle(ofGetWindowWidth() / 2, ofGetWindowHeight() / 2, 10);
 }
 
 //--------------------------------------------------------------
