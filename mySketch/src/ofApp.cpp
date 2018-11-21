@@ -7,13 +7,14 @@ void ofApp::setup(){
 
 //--------------------------------------------------------------
 void ofApp::update(){
-
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
+    drawBoard();
     ofSetColor(0, 0, 0);
-    ofDrawCircle(ofGetWindowWidth() / 2, ofGetWindowHeight() / 2, 10);
+    ofDrawCircle(ofGetWindowWidth() / 2, ofGetWindowHeight() / 2, 15);
 }
 
 //--------------------------------------------------------------
@@ -48,11 +49,12 @@ void ofApp::mousePressed(int x, int y, int button){
     //    update();
     x_pos = x; 
     y_pos = y;
+    size = 20;
 }
 
 //--------------------------------------------------------------
 void ofApp::mouseReleased(int x, int y, int button){
-
+    createParticle(x_pos, y_pos, x - x_pos, y - y_pos);
 }
 
 //--------------------------------------------------------------
@@ -78,4 +80,16 @@ void ofApp::gotMessage(ofMessage msg){
 //--------------------------------------------------------------
 void ofApp::dragEvent(ofDragInfo dragInfo){ 
 
+}
+
+void ofApp::drawBoard() {
+    for (int i = 0; i < particle_list.size(); i++) {
+        particle_list[i].draw();
+    }
+}
+
+
+
+void ofApp::createParticle(int x, int y, int x_vel, int y_vel) {
+    particle_list.push_back(Particle(x, y, x_vel, y_vel));
 }
