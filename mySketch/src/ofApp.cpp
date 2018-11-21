@@ -3,28 +3,28 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
     srand(static_cast<unsigned>(time(0))); // Seed random with current time
+    particle_list.push_back(Particle(5, 5, 0, -7, 15));
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
     
+    for (int i = 0; i < particle_list.size(); i++) {
+        particle_list[i].update();
+    }
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
     drawBoard();
-    ofSetColor(0, 0, 0);
-    ofDrawCircle(ofGetWindowWidth() / 2, ofGetWindowHeight() / 2, 15);
 }
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
-    int upper_key = toupper(key);
-    if (upper_key == 'W') {
-        ofSetColor(0, 0, 0);
-        ofDrawCircle(ofGetWindowWidth() / 2, ofGetWindowHeight() / 2, 10);
+    for (int i = 0; i < particle_list.size(); i++) {
+        ofVec2f force = *new ofVec2f(75,0);
+        //particle_list[i].applyForce(force);
     }
-    update();
 }
 
 //--------------------------------------------------------------
@@ -44,17 +44,14 @@ void ofApp::mouseDragged(int x, int y, int button){
 
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button){
-    //    std::cout << "mousePressed" << std::endl;
-    //    ofDrawCircle(x, y, 3);
-    //    update();
-    x_pos = x; 
+    x_pos = x;
     y_pos = y;
-    size = 20;
+    size = 10;
 }
 
 //--------------------------------------------------------------
 void ofApp::mouseReleased(int x, int y, int button){
-    createParticle(x_pos, y_pos, x - x_pos, y - y_pos);
+    createParticle(x_pos, y_pos, (x-x_pos)/5, (y-y_pos)/5, size);
 }
 
 //--------------------------------------------------------------
@@ -88,8 +85,10 @@ void ofApp::drawBoard() {
     }
 }
 
+void ofApp::createParticle(float x, float y, float x_vel, float y_vel, int size) {
+    particle_list.push_back(Particle(x, y, x_vel, y_vel, size));
+}
 
-
-void ofApp::createParticle(int x, int y, int x_vel, int y_vel) {
-    particle_list.push_back(Particle(x, y, x_vel, y_vel));
+std::vector<Particle> ofApp::get_particle_list() {
+    return particle_list;
 }

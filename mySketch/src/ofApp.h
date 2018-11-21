@@ -23,16 +23,16 @@ public:
     void dragEvent(ofDragInfo dragInfo);
     void gotMessage(ofMessage msg);
     
-    //std::vector<Particle> get_particle_list();
-    
-    int x_pos;
-    int y_pos;
+    float x_pos;
+    float y_pos;
     int size;
     
     double velocity;
     double gravity = 9.81;
     
-    void createParticle(int x, int y, int x_vel, int y_vel);
+    void createParticle(float x, float y, float x_vel, float y_vel, int mass);
     void drawBoard();
+    
+    std::vector<Particle> get_particle_list();
 		
 };
