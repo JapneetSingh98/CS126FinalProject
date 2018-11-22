@@ -3,11 +3,14 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
     srand(static_cast<unsigned>(time(0))); // Seed random with current time
-    
+    size = 10;
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
+    for (int i = 0; i < particle_list.size(); i++) {
+        particle_list[i].resetForce();
+    }
     
     for (int i = 0; i < particle_list.size(); i++) {
         particle_list[i].update(particle_list);
@@ -21,9 +24,16 @@ void ofApp::draw(){
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
-    for (int i = 0; i < particle_list.size(); i++) {
-        ofVec2f force = *new ofVec2f(75,0);
-        //particle_list[i].applyForce(force);
+    int upper_key = toupper(key); // Standardize on upper case
+    
+    if (upper_key == 'A' ) {
+        size = 1;
+        
+    } else if (upper_key == 'S' ) {
+        size = 10;
+        
+    } else if (upper_key == 'D' ) {
+        size = 100;
     }
 }
 
@@ -46,7 +56,6 @@ void ofApp::mouseDragged(int x, int y, int button){
 void ofApp::mousePressed(int x, int y, int button){
     x_pos = x;
     y_pos = y;
-    size = 15;
 }
 
 //--------------------------------------------------------------
@@ -85,12 +94,13 @@ void ofApp::drawBoard() {
     }
 }
 
-void ofApp::createParticle(float x, float y, float x_vel, float y_vel, int size) {
+void ofApp::createParticle(float x, float y, float x_vel, float y_vel, double size) {
     particle_list.push_back(Particle(x, y, x_vel, y_vel, size, particle_list.size()));
     
     //.push_back(createParticle(x, y, x_vel, y_vel, size));
 }
 
-std::vector<Particle> ofApp::get_particle_list() {
-    return particle_list;
-}
+//std::vector<Particle> ofApp::get_particle_list() {
+//    return particle_list;
+//}
+

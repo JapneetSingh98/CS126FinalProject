@@ -5,8 +5,9 @@
 
 class ofApp : public ofBaseApp{
 private:
-    std::vector<Particle> particle_list;
+    std::vector<Particle::Particle> particle_list; 
 public:
+    int count;
     void setup();
     void update();
     void draw();
@@ -25,14 +26,14 @@ public:
     
     float x_pos;
     float y_pos;
-    int size;
+    double size;
     
-    double velocity;
-    double gravity = 9.81;
+    //double velocity;
+    //double gravity = 9.81;
     
-    void createParticle(float x, float y, float x_vel, float y_vel, int mass);
+    void createParticle(float x, float y, float x_vel, float y_vel, double mass);
     void drawBoard();
     
-    std::vector<Particle> get_particle_list();
+    //std::vector<Particle> get_particle_list();
 		
 };
