@@ -3,14 +3,14 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
     srand(static_cast<unsigned>(time(0))); // Seed random with current time
-    particle_list.push_back(Particle(5, 5, 0, -7, 15));
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
     
     for (int i = 0; i < particle_list.size(); i++) {
-        particle_list[i].update();
+        particle_list[i].update(particle_list);
     }
 }
 
@@ -46,12 +46,12 @@ void ofApp::mouseDragged(int x, int y, int button){
 void ofApp::mousePressed(int x, int y, int button){
     x_pos = x;
     y_pos = y;
-    size = 10;
+    size = 15;
 }
 
 //--------------------------------------------------------------
 void ofApp::mouseReleased(int x, int y, int button){
-    createParticle(x_pos, y_pos, (x-x_pos)/5, (y-y_pos)/5, size);
+    createParticle(x_pos, y_pos, (x-x_pos)*2, (y-y_pos)*2, size);
 }
 
 //--------------------------------------------------------------
@@ -86,7 +86,9 @@ void ofApp::drawBoard() {
 }
 
 void ofApp::createParticle(float x, float y, float x_vel, float y_vel, int size) {
-    particle_list.push_back(Particle(x, y, x_vel, y_vel, size));
+    particle_list.push_back(Particle(x, y, x_vel, y_vel, size, particle_list.size()));
+    
+    //.push_back(createParticle(x, y, x_vel, y_vel, size));
 }
 
 std::vector<Particle> ofApp::get_particle_list() {
