@@ -26,7 +26,7 @@ public:
     
     float x_pos;
     float y_pos;
-    double size;
+    double mass;
     
     //double velocity;
     //double gravity = 9.81;
