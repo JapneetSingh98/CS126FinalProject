@@ -13,7 +13,11 @@ void ofApp::update(){
     }
     
     for (int i = 0; i < particle_list.size(); i++) {
-        particle_list[i].update(particle_list);
+        particle_list[i].updateForces(particle_list);
+    }
+    
+    for (int i = 0; i < particle_list.size(); i++) {
+        particle_list[i].updateVelPos();
     }
 }
 
