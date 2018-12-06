@@ -23,6 +23,7 @@ public:
     void windowResized(int w, int h);
     void dragEvent(ofDragInfo dragInfo);
     void gotMessage(ofMessage msg);
+    void display_num_particles();
     
     float x_pos;
     float y_pos;

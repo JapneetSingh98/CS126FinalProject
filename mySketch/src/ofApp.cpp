@@ -2,6 +2,7 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
+    
     srand(static_cast<unsigned>(time(0))); // Seed random with current time
     mass = 1000; // Default mass
 }
@@ -18,6 +19,13 @@ void ofApp::update(){
     
     for (int i = 0; i < particle_list.size(); i++) {
         particle_list[i].updateVelPos();
+    }
+    
+    // Getting rid of far away particles
+    for (int i = 0; i < particle_list.size(); i++) {
+        if (particle_list[i].dist_from_center() > 100) {
+            //particle_list.erase(particle_list.begin() + i);
+        }
     }
 }
 
@@ -106,9 +114,20 @@ void ofApp::drawBoard() {
     for (int i = 0; i < particle_list.size(); i++) {
         particle_list[i].draw();
     }
+    display_num_particles();
 }
 
 void ofApp::createParticle(float x, float y, float x_vel, float y_vel, double particle_mass) {
     particle_list.push_back(Particle(x, y, x_vel, y_vel, particle_mass, particle_list.size()));
+    
+}
+
+void ofApp::display_num_particles() {
+    
+    string message = "Particles in field: ";
+    message += to_string(particle_list.size());
+    
+    ofSetColor(0, 0, 0);
+    ofDrawBitmapString(message, 5, 10);
     
 }
