@@ -24,7 +24,7 @@ void ofApp::update(){
     // Getting rid of far away particles
     for (int i = 0; i < particle_list.size(); i++) {
         if (particle_list[i].dist_from_center() > 100) {
-            //particle_list.erase(particle_list.begin() + i);
+            //particle_list.erase(particle_list.begin() + i); 
         }
     }
 }
