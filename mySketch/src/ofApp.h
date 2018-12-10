@@ -2,11 +2,16 @@
 
 #include "ofMain.h"
 #include "particles.hpp"
+#include "SimpleButton.h"
 
 class ofApp : public ofBaseApp{
 private:
-    std::vector<Particle::Particle> particle_list; 
+    std::vector<Particle::Particle> particle_list;
+    std::vector<Particle::Particle> particles_to_keep;
 public:
+    ofApp() {
+        
+    }
     int count;
     void setup();
     void update();
@@ -24,6 +29,7 @@ public:
     void dragEvent(ofDragInfo dragInfo);
     void gotMessage(ofMessage msg);
     void display_num_particles();
+    void make_grid();
     
     float x_pos;
     float y_pos;
@@ -36,5 +42,11 @@ public:
     void drawBoard();
     
     //std::vector<Particle> get_particle_list();
+    
+    SimpleButton Small = SimpleButton("Small", 10,ofGetWindowHeight() - 45);
+    SimpleButton Medium = SimpleButton("Medium", 115,ofGetWindowHeight() - 45);
+    SimpleButton Large = SimpleButton("Large", 220,ofGetWindowHeight() - 45);
+    SimpleButton WTF = SimpleButton("WTF", 325,ofGetWindowHeight() - 45);
+    
 		
 };

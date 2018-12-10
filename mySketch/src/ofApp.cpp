@@ -5,10 +5,12 @@ void ofApp::setup(){
     
     srand(static_cast<unsigned>(time(0))); // Seed random with current time
     mass = 1000; // Default mass
+    //button = SimpleButton("test", ofGetWindowWidth()/2,ofGetWindowHeight()/2);
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
+    
     for (int i = 0; i < particle_list.size(); i++) {
         particle_list[i].resetForce();
     }
@@ -23,15 +25,30 @@ void ofApp::update(){
     
     // Getting rid of far away particles
     for (int i = 0; i < particle_list.size(); i++) {
-        if (particle_list[i].dist_from_center() > 100) {
-            //particle_list.erase(particle_list.begin() + i); 
+        if (particle_list[i].dist_from_center() < 850) {
+            particles_to_keep.push_back(Particle(particle_list[i].get_x_pos(), particle_list[i].get_y_pos(), particle_list[i].get_x_vel(), particle_list[i].get_y_vel(), particle_list[i].get_mass(), particles_to_keep.size()));
         }
     }
+    particle_list.clear();
+    for (int i = 0; i < particles_to_keep.size(); i++) {
+        particle_list.push_back(Particle(particles_to_keep[i].get_x_pos(), particles_to_keep[i].get_y_pos(), particles_to_keep[i].get_x_vel(), particles_to_keep[i].get_y_vel(), particles_to_keep[i].get_mass(), particle_list.size()));
+    }
+    particles_to_keep.clear();
+    
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
     drawBoard();
+    Small.visible = true;
+    Medium.visible = true;
+    Large.visible = true;
+    WTF.visible = true;
+    Small.draw();
+    Medium.draw();
+    Large.draw();
+    WTF.draw();
 }
 
 //--------------------------------------------------------------
@@ -50,13 +67,13 @@ void ofApp::keyPressed(int key){
     } else if (upper_key == 'F' ) {
         mass = 100000;
         
-    } else if (upper_key == 'G' ) {
-        mass = 1000000;
-        
     } else if (upper_key == ' ' ) { // Clears board of particles
         mass = 1000;
         particle_list.clear();
-    } 
+        
+    } else if (upper_key == 'Z' ) {
+        make_grid();
+    }
 }
 
 //--------------------------------------------------------------
@@ -82,7 +99,21 @@ void ofApp::mousePressed(int x, int y, int button){
 
 //--------------------------------------------------------------
 void ofApp::mouseReleased(int x, int y, int button){
-    createParticle(x_pos, y_pos, (x-x_pos)*2, (y-y_pos)*2, mass);
+    if (Small.checkClick(x, y)) {
+        mass = 1;
+        
+    } else if (Medium.checkClick(x, y)) {
+        mass = 1000;
+        
+    } else if (Large.checkClick(x, y)) {
+        mass = 10000;
+        
+    } else if (WTF.checkClick(x, y)) {
+        mass = 100000;
+        
+    } else {
+        createParticle(x_pos, y_pos, (x-x_pos)*2, (y-y_pos)*2, mass);
+    }
 }
 
 //--------------------------------------------------------------
@@ -128,6 +159,14 @@ void ofApp::display_num_particles() {
     message += to_string(particle_list.size());
     
     ofSetColor(0, 0, 0);
-    ofDrawBitmapString(message, 5, 10);
+    ofDrawBitmapString(message, 10, 15);
     
+}
+
+void ofApp::make_grid() {
+    for (int i = 0; i < 10; i++) {
+        for (int j = 0; j < 10; j++) {
+            createParticle(i * (ofGetWindowWidth()/9), j * (ofGetWindowHeight()/9), 0, 0, mass);
+        }
+    }
 }
