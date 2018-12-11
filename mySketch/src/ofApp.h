@@ -13,6 +13,10 @@ public:
         
     }
     int count;
+    bool enlarge;
+    bool sun_active;
+    bool damppen;
+    
     void setup();
     void update();
     void draw();
@@ -28,12 +32,14 @@ public:
     void windowResized(int w, int h);
     void dragEvent(ofDragInfo dragInfo);
     void gotMessage(ofMessage msg);
-    void display_num_particles();
+    void display_stats();
+    void display_welcome();
     void make_grid();
     
     float x_pos;
     float y_pos;
     double mass;
+    int total_mass;
     
     //double velocity;
     //double gravity = 9.81;
@@ -48,5 +54,12 @@ public:
     SimpleButton Large = SimpleButton("Large", 220,ofGetWindowHeight() - 45);
     SimpleButton WTF = SimpleButton("WTF", 325,ofGetWindowHeight() - 45);
     
-		
+    SimpleButton grid = SimpleButton("Grid", ofGetWindowWidth() - 344,ofGetWindowHeight() - 45);
+    SimpleButton Sun = SimpleButton("Turn Sun On", ofGetWindowWidth() - 239,ofGetWindowHeight() - 45);
+    SimpleButton Damppen = SimpleButton("Turn Damppen On", ofGetWindowWidth() - 134,ofGetWindowHeight() - 45);
+    
+    SimpleButton view = SimpleButton("Increase Particle Size", ofGetWindowWidth() - 190,10);
+    
+    
+    
 };

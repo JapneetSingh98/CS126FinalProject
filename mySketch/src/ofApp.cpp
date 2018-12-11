@@ -4,8 +4,20 @@
 void ofApp::setup(){
     
     srand(static_cast<unsigned>(time(0))); // Seed random with current time
+    total_mass = 0;
     mass = 1000; // Default mass
-    //button = SimpleButton("test", ofGetWindowWidth()/2,ofGetWindowHeight()/2);
+    enlarge = false;
+    sun_active = false;
+    damppen = false;
+    
+    Small.visible = true;
+    Medium.visible = true;
+    Large.visible = true;
+    WTF.visible = true;
+    grid.visible = true;
+    view.visible = true;
+    Sun.visible = true;
+    Damppen.visible = true;
 }
 
 //--------------------------------------------------------------
@@ -16,7 +28,7 @@ void ofApp::update(){
     }
     
     for (int i = 0; i < particle_list.size(); i++) {
-        particle_list[i].updateForces(particle_list);
+        particle_list[i].updateForces(particle_list, sun_active, damppen);
     }
     
     for (int i = 0; i < particle_list.size(); i++) {
@@ -30,25 +42,28 @@ void ofApp::update(){
         }
     }
     particle_list.clear();
+    total_mass = 0;
     for (int i = 0; i < particles_to_keep.size(); i++) {
         particle_list.push_back(Particle(particles_to_keep[i].get_x_pos(), particles_to_keep[i].get_y_pos(), particles_to_keep[i].get_x_vel(), particles_to_keep[i].get_y_vel(), particles_to_keep[i].get_mass(), particle_list.size()));
+        
+        total_mass += particles_to_keep[i].get_mass();
     }
     particles_to_keep.clear();
-    
     
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
     drawBoard();
-    Small.visible = true;
-    Medium.visible = true;
-    Large.visible = true;
-    WTF.visible = true;
+    
     Small.draw();
     Medium.draw();
     Large.draw();
     WTF.draw();
+    grid.draw();
+    view.draw();
+    Sun.draw();
+    Damppen.draw();
 }
 
 //--------------------------------------------------------------
@@ -111,6 +126,33 @@ void ofApp::mouseReleased(int x, int y, int button){
     } else if (WTF.checkClick(x, y)) {
         mass = 100000;
         
+    } else if (grid.checkClick(x, y)) {
+        make_grid();
+        
+    } else if (view.checkClick(x, y)) {
+        enlarge = !enlarge;
+        if (enlarge) {
+            view.title = "Decrease Particle Size";
+        } else {
+            view.title = "Increase Particle Size";
+        }
+        
+    } else if (Sun.checkClick(x, y)) {
+        sun_active = !sun_active;
+        if (sun_active) {
+            Sun.title = "Turn Sun Off";
+        } else {
+            Sun.title = "Turn Sun On";
+        }
+        
+    } else if (Damppen.checkClick(x, y)) {
+        damppen = !damppen;
+        if (damppen) {
+            Damppen.title = "Turn Damppen Off";
+        } else {
+            Damppen.title = "Turn Damppen On";
+        }
+        
     } else {
         createParticle(x_pos, y_pos, (x-x_pos)*2, (y-y_pos)*2, mass);
     }
@@ -143,24 +185,42 @@ void ofApp::dragEvent(ofDragInfo dragInfo){
 
 void ofApp::drawBoard() {
     for (int i = 0; i < particle_list.size(); i++) {
-        particle_list[i].draw();
+        particle_list[i].draw(enlarge);
     }
-    display_num_particles();
+    display_welcome();
+    display_stats();
 }
 
 void ofApp::createParticle(float x, float y, float x_vel, float y_vel, double particle_mass) {
     particle_list.push_back(Particle(x, y, x_vel, y_vel, particle_mass, particle_list.size()));
+    total_mass += mass;
+}
+
+void ofApp::display_stats() {
+    
+    string message = "Particles in field:  ";
+    message += to_string(particle_list.size());
+    ofSetColor(0, 0, 0);
+    ofDrawBitmapString(message, 10, 75);
+    
+    message = "Total mass in field: ";
+    message += to_string(total_mass);
+    ofDrawBitmapString(message, 10, 90);
+    
+    message = "Selected mass:       ";
+    message += to_string((int) mass);
+    ofDrawBitmapString(message, 10, 105);
     
 }
 
-void ofApp::display_num_particles() {
-    
-    string message = "Particles in field: ";
-    message += to_string(particle_list.size());
-    
-    ofSetColor(0, 0, 0);
+void ofApp::display_welcome() {
+    string message = "Welcome to Gravity Simulator!";
+    ofSetColor(0,0,0);
     ofDrawBitmapString(message, 10, 15);
     
+    message = "Click and release to create a particle.\nDrag to give the particle initial velocity.\nPress Space to clear board.";
+    ofSetColor(0,0,0);
+    ofDrawBitmapString(message, 10, 30);
 }
 
 void ofApp::make_grid() {
