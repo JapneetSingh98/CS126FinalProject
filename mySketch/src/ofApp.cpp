@@ -103,6 +103,12 @@ void ofApp::keyPressed(int key){
         particle_list.clear();
         big_g = 150;
         
+    } else if (upper_key == '1' ) {
+        big_g = 150;
+        
+    } else if (upper_key == '0' ) {
+        big_g = 0;
+        
     } else if (upper_key == 'Z' ) {
         make_grid();
     
