@@ -5,6 +5,7 @@
 #include "SimpleButton.h"
 #include <cstdlib>
 #include <ctime>
+#include "ofxGui.h"
 
 class ofApp : public ofBaseApp{
 private:
@@ -75,6 +76,8 @@ public:
     SimpleButton Damppen = SimpleButton("Turn Damppen On", ofGetWindowWidth() - 134,ofGetWindowHeight() - 45);
     
     SimpleButton view = SimpleButton("Increase Particle Size", ofGetWindowWidth() - 190,10);
+    
+    ofxFloatSlider big_g;
     
     
     

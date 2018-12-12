@@ -21,6 +21,10 @@ void ofApp::setup(){
     view.visible = true;
     Sun.visible = true;
     Damppen.visible = true;
+    
+    big_g.setup("Big G", 150, -200, 500);
+    big_g.setPosition(535, ofGetWindowHeight() - 45);
+    big_g.setSize(random.xpos - 540, 38);
 }
 
 //--------------------------------------------------------------
@@ -31,7 +35,7 @@ void ofApp::update(){
     }
     
     for (int i = 0; i < particle_list.size(); i++) {
-        particle_list[i].updateForces(particle_list, sun_active, damppen);
+        particle_list[i].updateForces(particle_list, sun_active, damppen, big_g);
     }
     
     for (int i = 0; i < particle_list.size(); i++) {
@@ -70,6 +74,9 @@ void ofApp::draw(){
     view.draw();
     Sun.draw();
     Damppen.draw();
+    
+    big_g.draw();
+    //.draw();
 }
 
 //--------------------------------------------------------------
@@ -94,6 +101,7 @@ void ofApp::keyPressed(int key){
     } else if (upper_key == ' ' ) { // Clears board of particles
         mass = LARGE_MASS;
         particle_list.clear();
+        big_g = 150;
         
     } else if (upper_key == 'Z' ) {
         make_grid();
