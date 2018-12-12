@@ -5,15 +5,18 @@ void ofApp::setup(){
     
     srand(static_cast<unsigned>(time(0))); // Seed random with current time
     total_mass = 0;
-    mass = 1000; // Default mass
+    mass = LARGE_MASS; // Default mass
     enlarge = false;
     sun_active = false;
     damppen = false;
     
+    Tiny.visible = true;
     Small.visible = true;
     Medium.visible = true;
     Large.visible = true;
     WTF.visible = true;
+    
+    random.visible = true;
     grid.visible = true;
     view.visible = true;
     Sun.visible = true;
@@ -37,7 +40,7 @@ void ofApp::update(){
     
     // Getting rid of far away particles
     for (int i = 0; i < particle_list.size(); i++) {
-        if (particle_list[i].dist_from_center() < 850) {
+        if (particle_list[i].dist_from_center() < KILL_RADIUS) {
             particles_to_keep.push_back(Particle(particle_list[i].get_x_pos(), particle_list[i].get_y_pos(), particle_list[i].get_x_vel(), particle_list[i].get_y_vel(), particle_list[i].get_mass(), particles_to_keep.size()));
         }
     }
@@ -56,10 +59,13 @@ void ofApp::update(){
 void ofApp::draw(){
     drawBoard();
     
+    Tiny.draw();
     Small.draw();
     Medium.draw();
     Large.draw();
     WTF.draw();
+    
+    random.draw();
     grid.draw();
     view.draw();
     Sun.draw();
@@ -71,23 +77,29 @@ void ofApp::keyPressed(int key){
     int upper_key = toupper(key); // Standardize on upper case
     
     if (upper_key == 'A' ) {
-        mass = 1;
+        mass = TINY_MASS;
         
     } else if (upper_key == 'S' ) {
-        mass = 1000;
+        mass = SMALL_MASS;
         
     } else if (upper_key == 'D' ) {
-        mass = 10000;
+        mass = MED_MASS;
         
     } else if (upper_key == 'F' ) {
-        mass = 100000;
+        mass = LARGE_MASS;
+        
+    } else if (upper_key == 'G' ) {
+        mass = WTF_MASS;
         
     } else if (upper_key == ' ' ) { // Clears board of particles
-        mass = 1000;
+        mass = LARGE_MASS;
         particle_list.clear();
         
     } else if (upper_key == 'Z' ) {
         make_grid();
+    
+    } else if (upper_key == 'X' ) {
+        make_random();
     }
 }
 
@@ -114,18 +126,24 @@ void ofApp::mousePressed(int x, int y, int button){
 
 //--------------------------------------------------------------
 void ofApp::mouseReleased(int x, int y, int button){
-    if (Small.checkClick(x, y)) {
-        mass = 1;
+    if (Tiny.checkClick(x,y)) {
+        mass = TINY_MASS;
+        
+    } else if (Small.checkClick(x, y)) {
+        mass = SMALL_MASS;
         
     } else if (Medium.checkClick(x, y)) {
-        mass = 1000;
+        mass = MED_MASS;
         
     } else if (Large.checkClick(x, y)) {
-        mass = 10000;
+        mass = LARGE_MASS;
         
     } else if (WTF.checkClick(x, y)) {
-        mass = 100000;
+        mass = WTF_MASS;
         
+    } else if (random.checkClick(x, y)) {
+        make_random();
+    
     } else if (grid.checkClick(x, y)) {
         make_grid();
         
@@ -227,6 +245,20 @@ void ofApp::make_grid() {
     for (int i = 0; i < 10; i++) {
         for (int j = 0; j < 10; j++) {
             createParticle(i * (ofGetWindowWidth()/9), j * (ofGetWindowHeight()/9), 0, 0, mass);
+        }
+    }
+}
+
+void ofApp::make_random() {
+    for (int i = 0; i < 10; i++) {
+        for (int j = 0; j < 10; j++) {
+            float rand_x = static_cast <float> (rand()) /( static_cast <float> (RAND_MAX/(ofGetWindowWidth())));
+            float rand_y = static_cast <float> (rand()) /( static_cast <float> (RAND_MAX/(ofGetWindowHeight())));
+            
+            float rand_x_vel = MIN_RAND_VEL + static_cast <float> (rand()) /( static_cast <float> (RAND_MAX/(MAX_RAND_VEL - MIN_RAND_VEL)));
+            float rand_y_vel = MIN_RAND_VEL + static_cast <float> (rand()) /( static_cast <float> (RAND_MAX/(MAX_RAND_VEL - MIN_RAND_VEL)));
+            
+            createParticle(rand_x, rand_y, rand_x_vel, rand_y_vel, mass);
         }
     }
 }
