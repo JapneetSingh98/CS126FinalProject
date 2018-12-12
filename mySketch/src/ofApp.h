@@ -13,9 +13,9 @@ private:
     std::vector<Particle::Particle> particles_to_keep;
     
     const int TINY_MASS = 1;
-    const int SMALL_MASS = 50;
-    const int MED_MASS = 100;
-    const int LARGE_MASS = 1000;
+    const int SMALL_MASS = 100;
+    const int MED_MASS = 1000;
+    const int LARGE_MASS = 9000;
     const int WTF_MASS = 100000;
     
     const int KILL_RADIUS = 850;

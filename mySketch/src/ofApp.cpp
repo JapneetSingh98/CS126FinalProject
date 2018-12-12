@@ -5,7 +5,7 @@ void ofApp::setup(){
     
     srand(static_cast<unsigned>(time(0))); // Seed random with current time
     total_mass = 0;
-    mass = LARGE_MASS; // Default mass
+    mass = MED_MASS; // Default mass
     enlarge = false;
     sun_active = false;
     damppen = false;
@@ -99,7 +99,7 @@ void ofApp::keyPressed(int key){
         mass = WTF_MASS;
         
     } else if (upper_key == ' ' ) { // Clears board of particles
-        mass = LARGE_MASS;
+        mass = MED_MASS;
         particle_list.clear();
         big_g = 150;
         
