@@ -1,10 +1,12 @@
 # Project Proposal
-My idea was to create a solar system simulator
-This would allow users to select which planets they would like to have displayed on the screen, and the size of the sun.
-It would then display the solar system to scale on the screen, allowing the user to scroll through and see the solar system
-at an accurate scale in terms of size and distance.
+My idea was to create a gravity simulator
+This allows the user to place particles on the screen with the mass and initial velocity of their choosing. 
+The user will also be able to choose the mass of the particles that will be placed.
 
-Another idea would be to give the user the option of viewing the orbits by inputing units of time. This would be shown as
-points moving in different sized circles at different speeds based on the inputed time scale.
+I was thinking about using openFrameworks, ofxGui, and ofxButtons
 
-I was thinking about using openFrameworks and
+Bonus features:
+The user is also able to adjust the gravitational constant and can put down pre-made patterns of particles. 
+Sun and Damppen buttons allow the user to add a "sun" to the field and play around with "friction"
+Particles change color based on their velocity
+Visibility mode that makes objects appear bigger (usefull for visually impaired users or for presentations where particles may appear too small)
