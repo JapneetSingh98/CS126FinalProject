@@ -101,10 +101,10 @@ void ofApp::keyPressed(int key){
     } else if (upper_key == CLEAR_KEY ) { // Clears board of particles
         mass = MED_MASS;
         particle_list.clear();
-        big_g = 150;
+        big_g = STANDARD_G;
         
     } else if (upper_key == STANDARD_G_KEY ) {
-        big_g = 150;
+        big_g = STANDARD_G;
         
     } else if (upper_key == ZERO_G_KEY ) {
         big_g = 0;
@@ -264,15 +264,13 @@ void ofApp::make_grid() {
 }
 
 void ofApp::make_random() {
-    for (int i = 0; i < 10; i++) {
-        for (int j = 0; j < 10; j++) {
-            float rand_x = static_cast <float> (rand()) /( static_cast <float> (RAND_MAX/(ofGetWindowWidth())));
-            float rand_y = static_cast <float> (rand()) /( static_cast <float> (RAND_MAX/(ofGetWindowHeight())));
-            
-            float rand_x_vel = MIN_RAND_VEL + static_cast <float> (rand()) /( static_cast <float> (RAND_MAX/(MAX_RAND_VEL - MIN_RAND_VEL)));
-            float rand_y_vel = MIN_RAND_VEL + static_cast <float> (rand()) /( static_cast <float> (RAND_MAX/(MAX_RAND_VEL - MIN_RAND_VEL)));
-            
-            createParticle(rand_x, rand_y, rand_x_vel, rand_y_vel, mass);
-        }
+    for (int i = 0; i < 100; i++) {
+        float rand_x = static_cast <float> (rand()) /( static_cast <float> (RAND_MAX/(ofGetWindowWidth())));
+        float rand_y = static_cast <float> (rand()) /( static_cast <float> (RAND_MAX/(ofGetWindowHeight())));
+        
+        float rand_x_vel = MIN_RAND_VEL + static_cast <float> (rand()) /( static_cast <float> (RAND_MAX/(MAX_RAND_VEL - MIN_RAND_VEL)));
+        float rand_y_vel = MIN_RAND_VEL + static_cast <float> (rand()) /( static_cast <float> (RAND_MAX/(MAX_RAND_VEL - MIN_RAND_VEL)));
+        
+        createParticle(rand_x, rand_y, rand_x_vel, rand_y_vel, mass);
     }
 }

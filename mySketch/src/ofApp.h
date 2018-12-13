@@ -17,6 +17,7 @@ private:
     const int MED_MASS = 1000;
     const int LARGE_MASS = 9000;
     const int WTF_MASS = 100000;
+    const int STANDARD_G = 150;
     
     const int KILL_RADIUS = 850;
     
