@@ -83,36 +83,36 @@ void ofApp::draw(){
 void ofApp::keyPressed(int key){
     int upper_key = toupper(key); // Standardize on upper case
     
-    if (upper_key == 'A' ) {
+    if (upper_key == TINY_KEY ) {
         mass = TINY_MASS;
         
-    } else if (upper_key == 'S' ) {
+    } else if (upper_key == SMALL_KEY ) {
         mass = SMALL_MASS;
         
-    } else if (upper_key == 'D' ) {
+    } else if (upper_key == MED_KEY ) {
         mass = MED_MASS;
         
-    } else if (upper_key == 'F' ) {
+    } else if (upper_key == LARGE_KEY ) {
         mass = LARGE_MASS;
         
-    } else if (upper_key == 'G' ) {
+    } else if (upper_key == WTF_KEY ) {
         mass = WTF_MASS;
         
-    } else if (upper_key == ' ' ) { // Clears board of particles
+    } else if (upper_key == CLEAR_KEY ) { // Clears board of particles
         mass = MED_MASS;
         particle_list.clear();
         big_g = 150;
         
-    } else if (upper_key == '1' ) {
+    } else if (upper_key == STANDARD_G_KEY ) {
         big_g = 150;
         
-    } else if (upper_key == '0' ) {
+    } else if (upper_key == ZERO_G_KEY ) {
         big_g = 0;
         
-    } else if (upper_key == 'Z' ) {
+    } else if (upper_key == GRID_KEY ) {
         make_grid();
     
-    } else if (upper_key == 'X' ) {
+    } else if (upper_key == RANDOM_KEY ) {
         make_random();
     }
 }

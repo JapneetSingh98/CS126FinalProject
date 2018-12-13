@@ -22,6 +22,17 @@ private:
     
     const int MIN_RAND_VEL = -50;
     const int MAX_RAND_VEL = 50;
+    
+    const char TINY_KEY = 'A';
+    const char SMALL_KEY = 'S';
+    const char MED_KEY = 'D';
+    const char LARGE_KEY = 'F';
+    const char WTF_KEY = 'G';
+    const char CLEAR_KEY = ' ';
+    const char STANDARD_G_KEY = '1';
+    const char ZERO_G_KEY = '0';
+    const char GRID_KEY = 'Z';
+    const char RANDOM_KEY = 'X';
 public:
     ofApp() {
         
